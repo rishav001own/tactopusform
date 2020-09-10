@@ -58,7 +58,7 @@ app.put("/activeslot/changetoinactiveslot/:id",(req,res) =>{
         if (err) throw err;
         var dbo = db.db("mydb");
         var myquery = { _id: ObjectID(req.params.id) };
-        var newvalues = { $set: {status: "inactive"} };
+        var newvalues = { $set: {status: "inactive",isSlotBooked: false} };
         dbo.collection("slots").updateOne(myquery, newvalues, function(err, re) {
           if (err) throw err;
           console.log("1 document updated");
@@ -73,7 +73,7 @@ app.put("/inactiveslot/changetoactiveslot/:id",(req,res) =>{
         if (err) throw err;
         var dbo = db.db("mydb");
         var myquery = { _id: ObjectID(req.params.id) };
-        var newvalues = { $set: {status: "active"} };
+        var newvalues = { $set: {status: "active",isSlotBooked: true} };
         dbo.collection("slots").updateOne(myquery, newvalues, function(err, re) {
           if (err) throw err;
           console.log("1 document updated");
